@@ -1,11 +1,606 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<Welcome />
+  <!-- ===== PANTALLA DE BIENVENIDA ===== -->
+  <section id="welcome-screen">
+    <div class="particles" id="particles"></div>
+    <div class="welcome-content glass">
+      <span class="emoji-top">🎂</span>
+      <h1 class="welcome-title">¡Feliz Cumpleaños<br /><span class="highlight">Papá!</span></h1>
+      <p class="welcome-sub">Hicimos algo especial para ti</p>
+      <button id="btn-start" class="btn-gold">
+        <span>🎁</span> Abrir Sorpresa
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== CONTENIDO PRINCIPAL ===== -->
+  <main id="main-content" class="hidden">
+    <!-- HERO -->
+    <section class="hero-section">
+      <div class="confetti" id="confetti"></div>
+      <h1 class="hero-title animate-slide-up">🎉 ¡Este día es para ti, Papá! 🎉</h1>
+      <p class="hero-text animate-slide-up delay-1">
+        Queremos celebrarte con todo nuestro cariño. Gracias por ser el mejor
+        papá del mundo. Cada momento a tu lado es un regalo.
+      </p>
+    </section>
+
+    <!-- MÚSICA DE FONDO -->
+    <section class="music-section glass animate-slide-up delay-2">
+      <h2>🎵 Dale play a tu canción</h2>
+      <div class="music-player">
+        <div class="music-item">
+          <span class="music-icon">🎶</span>
+          <span class="music-label">Feliz Cumpleaños</span>
+          <audio controls src="/FELIZCUMPLEANOS.mp3"></audio>
+        </div>
+        <div class="music-item">
+          <span class="music-icon">🎸</span>
+          <span class="music-label">Creep - Radiohead</span>
+          <audio controls src="/Creep - Radiohead .mp3"></audio>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA DE FOTOS -->
+    <section class="gallery-section">
+      <h2 class="section-title animate-slide-up">📸 Nuestros Mejores Momentos</h2>
+
+      <div class="gallery-grid">
+        <div class="gallery-card glass animate-slide-up delay-1">
+          <img src="/Juntos.jpg" alt="Juntos en familia" loading="lazy" />
+          <div class="card-overlay">
+            <p>Juntos siempre 💛</p>
+          </div>
+        </div>
+
+        <div class="gallery-card glass animate-slide-up delay-2">
+          <img src="/Hermanos.jpeg" alt="Los hermanos" loading="lazy" />
+          <div class="card-overlay">
+            <p>Los hermanos 🫂</p>
+          </div>
+        </div>
+
+        <div class="gallery-card glass animate-slide-up delay-3">
+          <img src="/Niños.jpeg" alt="De niños" loading="lazy" />
+          <div class="card-overlay">
+            <p>Recuerdos de niños 👶</p>
+          </div>
+        </div>
+
+        <div class="gallery-card glass animate-slide-up delay-1">
+          <img src="/PapaCaro.jpeg" alt="Papá y Caro" loading="lazy" />
+          <div class="card-overlay">
+            <p>Papá y Caro 💕</p>
+          </div>
+        </div>
+
+        <div class="gallery-card glass animate-slide-up delay-2">
+          <img src="/PapaOscar.jpeg" alt="Papá y Oscar" loading="lazy" />
+          <div class="card-overlay">
+            <p>Papá y Oscar 💪</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENSAJES DE VOZ -->
+    <section class="voices-section">
+      <h2 class="section-title animate-slide-up">🎤 Mensajes de Voz</h2>
+      <p class="section-sub animate-slide-up">Cada uno te grabó algo especial</p>
+
+      <div class="voices-grid">
+        <div class="voice-card glass animate-slide-up delay-1">
+          <div class="voice-avatar">🧑</div>
+          <h3>Richard</h3>
+          <audio controls src="/AudioRichard.mp3"></audio>
+        </div>
+
+        <div class="voice-card glass animate-slide-up delay-2">
+          <div class="voice-avatar">👩</div>
+          <h3>Caro</h3>
+          <audio controls src="/AudioCaro.mp3"></audio>
+        </div>
+
+        <div class="voice-card glass animate-slide-up delay-3">
+          <div class="voice-avatar">🧑</div>
+          <h3>Oscar</h3>
+          <audio controls src="/AudioOscar.mp3"></audio>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENSAJE FINAL -->
+    <section class="final-section glass animate-slide-up">
+      <div class="final-content">
+        <span class="big-emoji">❤️</span>
+        <h2>Te queremos con todo el corazón, Papá</h2>
+        <p>
+          No importa los años que pasen, siempre serás nuestro héroe, nuestro
+          ejemplo y nuestra mayor inspiración. Gracias por todo lo que haces
+          por nosotros.
+        </p>
+        <p class="signature">— Con amor: Richard, Caro y Oscar 💛</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Hecho con mucho ❤️ para el mejor papá del mundo</p>
+    </footer>
+  </main>
 </Layout>
+
+<style>
+  /* ===== WELCOME SCREEN ===== */
+  #welcome-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+
+  #welcome-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .welcome-content {
+    text-align: center;
+    padding: 3rem 2.5rem;
+    max-width: 480px;
+    position: relative;
+    z-index: 2;
+    animation: reveal 1s ease forwards;
+  }
+
+  .emoji-top {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .welcome-title {
+    font-family: "Dancing Script", cursive;
+    font-size: clamp(2.2rem, 6vw, 3.5rem);
+    color: var(--color-text-main);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .highlight {
+    color: var(--color-primary);
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+  }
+
+  .welcome-sub {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  .btn-gold {
+    font-family: var(--font-family);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: #0f2027;
+    border: none;
+    padding: 1rem 2.5rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+    animation: pulse-glow 2s infinite;
+  }
+
+  .btn-gold:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 30px rgba(212, 175, 55, 0.6);
+  }
+
+  .btn-gold span {
+    margin-right: 0.4rem;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  .hidden {
+    display: none !important;
+  }
+
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.2rem 4rem;
+  }
+
+  /* HERO */
+  .hero-section {
+    text-align: center;
+    padding: 4rem 1rem 3rem;
+    position: relative;
+  }
+
+  .hero-title {
+    font-family: "Dancing Script", cursive;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--color-primary);
+    margin-bottom: 1.2rem;
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+  }
+
+  .hero-text {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  /* SECTION TITLES */
+  .section-title {
+    font-family: "Dancing Script", cursive;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--color-primary);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-sub {
+    text-align: center;
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+
+  /* MUSIC */
+  .music-section {
+    padding: 2rem;
+    margin: 2rem 0;
+    text-align: center;
+  }
+
+  .music-section h2 {
+    font-family: "Dancing Script", cursive;
+    font-size: 1.8rem;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+  }
+
+  .music-player {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .music-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .music-icon {
+    font-size: 1.6rem;
+  }
+
+  .music-label {
+    font-weight: 600;
+    color: var(--color-text-main);
+    min-width: 160px;
+  }
+
+  audio {
+    height: 36px;
+    border-radius: 20px;
+    max-width: 280px;
+    flex: 1;
+  }
+
+  audio::-webkit-media-controls-panel {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+  }
+
+  /* GALLERY */
+  .gallery-section {
+    margin: 3rem 0;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .gallery-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    aspect-ratio: 4/3;
+  }
+
+  .gallery-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .gallery-card:hover img {
+    transform: scale(1.1);
+  }
+
+  .card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+    padding: 2rem 1.2rem 1.2rem;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+  }
+
+  .gallery-card:hover .card-overlay {
+    transform: translateY(0);
+  }
+
+  .card-overlay p {
+    color: white;
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  /* VOICES */
+  .voices-section {
+    margin: 3rem 0;
+  }
+
+  .voices-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .voice-card {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: var(--transition-smooth);
+  }
+
+  .voice-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .voice-avatar {
+    font-size: 3rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .voice-card h3 {
+    color: var(--color-primary);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .voice-card audio {
+    width: 100%;
+    max-width: 240px;
+  }
+
+  /* FINAL MESSAGE */
+  .final-section {
+    margin: 3rem 0;
+    padding: 3rem 2rem;
+    text-align: center;
+    background: linear-gradient(
+      135deg,
+      rgba(212, 175, 55, 0.1),
+      rgba(30, 40, 50, 0.6)
+    );
+    border: 1px solid rgba(212, 175, 55, 0.25);
+  }
+
+  .big-emoji {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .final-section h2 {
+    font-family: "Dancing Script", cursive;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    color: var(--color-primary);
+    margin-bottom: 1.2rem;
+  }
+
+  .final-section p {
+    color: var(--color-text-muted);
+    max-width: 550px;
+    margin: 0 auto;
+    line-height: 1.8;
+    font-size: 1.05rem;
+  }
+
+  .signature {
+    margin-top: 1.5rem !important;
+    color: var(--color-primary) !important;
+    font-weight: 700;
+    font-size: 1.2rem !important;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+
+  /* DELAYS */
+  .delay-1 { animation-delay: 0.15s; }
+  .delay-2 { animation-delay: 0.3s; }
+  .delay-3 { animation-delay: 0.45s; }
+
+  /* CONFETTI */
+  .confetti {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    top: -20px;
+    animation: confetti-fall linear forwards;
+  }
+
+  @keyframes confetti-fall {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  /* PARTICLE */
+  .particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    opacity: 0;
+    animation: particle-float linear infinite;
+  }
+
+  @keyframes particle-float {
+    0% {
+      opacity: 0;
+      transform: translateY(0) scale(0);
+    }
+    10% {
+      opacity: 0.6;
+    }
+    90% {
+      opacity: 0.3;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-100vh) scale(1);
+    }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .welcome-content {
+      padding: 2rem 1.5rem;
+      margin: 1rem;
+    }
+
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .voices-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .music-item {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    main {
+      padding: 1rem 0.8rem 3rem;
+    }
+  }
+</style>
+
+<script>
+  // Particles for welcome screen
+  function createParticles() {
+    const container = document.getElementById("particles");
+    if (!container) return;
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement("div");
+      p.classList.add("particle");
+      p.style.left = Math.random() * 100 + "%";
+      p.style.width = p.style.height = Math.random() * 6 + 3 + "px";
+      p.style.animationDuration = Math.random() * 6 + 4 + "s";
+      p.style.animationDelay = Math.random() * 4 + "s";
+      container.appendChild(p);
+    }
+  }
+
+  // Confetti burst
+  function createConfetti() {
+    const container = document.getElementById("confetti");
+    if (!container) return;
+    const colors = ["#d4af37", "#f1c40f", "#e74c3c", "#fff", "#2ecc71", "#9b59b6"];
+    for (let i = 0; i < 80; i++) {
+      const piece = document.createElement("div");
+      piece.classList.add("confetti-piece");
+      piece.style.left = Math.random() * 100 + "%";
+      piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.animationDuration = Math.random() * 2 + 2 + "s";
+      piece.style.animationDelay = Math.random() * 1.5 + "s";
+      piece.style.width = Math.random() * 8 + 6 + "px";
+      piece.style.height = Math.random() * 8 + 6 + "px";
+      piece.style.borderRadius = Math.random() > 0.5 ? "50%" : "2px";
+      container.appendChild(piece);
+    }
+  }
+
+  // Start button
+  document.getElementById("btn-start")?.addEventListener("click", () => {
+    const welcome = document.getElementById("welcome-screen");
+    const main = document.getElementById("main-content");
+
+    welcome?.classList.add("fade-out");
+    setTimeout(() => {
+      if (main) main.classList.remove("hidden");
+      createConfetti();
+      // Remove welcome from DOM after transition
+      setTimeout(() => welcome?.remove(), 500);
+    }, 800);
+  });
+
+  // Init particles
+  createParticles();
+</script>
